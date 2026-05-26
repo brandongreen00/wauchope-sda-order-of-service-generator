@@ -34,6 +34,7 @@ export default function SongRow({ label, value, onChange, onRemove, hideSearch =
       )}
 
       <select
+        className="song-row__key"
         value={value.key || ''}
         onChange={(e) => update({ key: e.target.value })}
         aria-label="Key"
@@ -55,6 +56,7 @@ export default function SongRow({ label, value, onChange, onRemove, hideSearch =
       </label>
 
       <select
+        className="song-row__modkey"
         value={value.modulation || ''}
         onChange={(e) => update({ modulation: e.target.value })}
         disabled={!modulationEnabled}
@@ -71,7 +73,7 @@ export default function SongRow({ label, value, onChange, onRemove, hideSearch =
           ×
         </button>
       ) : (
-        <span />
+        <span className="song-row__spacer" />
       )}
     </div>
   );
