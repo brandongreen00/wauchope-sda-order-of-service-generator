@@ -1,0 +1,6 @@
+Liberation Sans is included under the SIL Open Font License 1.1.
+
+Source: https://github.com/liberationfonts/liberation-fonts
+Upstream: Red Hat, Inc. (Liberation Fonts); Google Corp. (Arimo digitization).
+
+Full license text: https://scripts.sil.org/OFL
