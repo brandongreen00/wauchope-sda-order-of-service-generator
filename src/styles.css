@@ -1,0 +1,245 @@
+:root {
+  --border: #d8d8d8;
+  --border-strong: #bbb;
+  --bg: #fafafa;
+  --panel: #ffffff;
+  --text: #222;
+  --muted: #666;
+  --accent: #0b66c2;
+  --danger: #b00020;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.app {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+h1 {
+  font-size: 22px;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.section {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+
+.section h2 {
+  font-size: 15px;
+  margin: 0 0 12px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.field-row:last-child { margin-bottom: 0; }
+
+.field-row label {
+  font-weight: 500;
+}
+
+.field-row input[type="text"],
+.field-row input[type="number"],
+.field-row select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+}
+
+.date-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.date-row input[type="number"] { width: 80px; }
+.date-row select { width: 160px; }
+
+.song-row {
+  display: grid;
+  grid-template-columns: 1fr 110px 90px 110px 28px;
+  gap: 8px;
+  align-items: start;
+  padding: 8px 0;
+  border-top: 1px solid #eee;
+}
+
+.song-row:first-child { border-top: none; }
+
+.song-row.with-label {
+  grid-template-columns: 130px 1fr 110px 90px 110px 28px;
+}
+
+.song-row .row-label {
+  font-weight: 500;
+  padding-top: 6px;
+}
+
+.hymn-search {
+  position: relative;
+}
+
+.hymn-search input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.hymn-search .number-input {
+  margin-top: 4px;
+  width: 90px;
+}
+
+.suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  background: white;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  margin-top: 2px;
+  max-height: 240px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.suggestions button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 6px 10px;
+  background: white;
+  border: none;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.suggestions button:hover,
+.suggestions button:focus {
+  background: #eef5ff;
+  outline: none;
+}
+
+.suggestions .num {
+  display: inline-block;
+  width: 38px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.song-row select,
+.song-row input[type="number"] {
+  padding: 6px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+}
+
+.song-row select:disabled {
+  background: #f0f0f0;
+  color: #999;
+}
+
+.modulation {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.modulation input[type="checkbox"] {
+  margin: 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: white;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn:hover { background: #f4f4f4; }
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  font-weight: 500;
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
+.btn-primary:hover {
+  background: #094d92;
+  border-color: #094d92;
+}
+
+.btn-remove {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 4px;
+  background: white;
+  border: 1px solid var(--border-strong);
+  color: var(--danger);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.btn-remove:hover { background: #fff0f0; }
+
+.add-song {
+  margin-top: 8px;
+}
+
+.generate {
+  margin-top: 24px;
+  text-align: right;
+}
