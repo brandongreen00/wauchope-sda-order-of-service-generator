@@ -39,15 +39,21 @@ npm run preview    # serves the built dist/ for sanity checking
 ## Re-scraping the hymn list
 
 The Seventh-day Adventist Hymnal (1985) entries are already bundled at
-`public/hymns.json`. To re-scrape from hymnary.org:
+`public/hymns.json`. To re-scrape:
 
 ```bash
 npm run scrape
 ```
 
-This hits `https://hymnary.org/hymnal/SDAH1985?page=0..8`, parses each table
-of results, and writes a flat sorted array of `{ number, title }` back to
-`public/hymns.json`. Re-run only if hymnary.org changes its catalogue.
+The scraper walks `https://adventisthymns.com/titles/[a-z]`, parses each
+alphabetical listing, and writes a flat sorted array of `{ number, title }`
+back to `public/hymns.json`. This source gives the canonical title for each
+hymn (e.g. "It Is Well With My Soul" for #530) rather than a first-line
+excerpt. Re-run only if adventisthymns.com changes its catalogue.
+
+(Note: adventisthymns.com's `/numbers/<range>` pages only work for ranges
+up to `500-599`; the `600+` ranges fall back to showing hymns 1-100, which
+is why the scraper uses the alphabetical title index instead.)
 
 ## Deploying to GitHub Pages
 

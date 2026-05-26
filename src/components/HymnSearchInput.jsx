@@ -31,6 +31,12 @@ export default function HymnSearchInput({ value, onChange }) {
     [hymns]
   );
 
+  const hymnByNumber = useMemo(() => {
+    const map = new Map();
+    for (const h of hymns) map.set(h.number, h);
+    return map;
+  }, [hymns]);
+
   // Close on outside click.
   useEffect(() => {
     function handleClick(e) {
@@ -62,7 +68,16 @@ export default function HymnSearchInput({ value, onChange }) {
   function handleNumberChange(e) {
     const raw = e.target.value;
     const num = raw === '' ? null : parseInt(raw, 10);
-    onChange({ ...value, number: Number.isFinite(num) ? num : null });
+    const validNum = Number.isFinite(num) ? num : null;
+    // Auto-fill the title from the catalogue when the number resolves to a
+    // known hymn. If the number is empty or unknown, leave the title alone
+    // so a manually typed title is not clobbered.
+    const match = validNum != null ? hymnByNumber.get(validNum) : null;
+    if (match) {
+      onChange({ ...value, number: validNum, title: match.title });
+    } else {
+      onChange({ ...value, number: validNum });
+    }
   }
 
   function pickSuggestion(h) {
