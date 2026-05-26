@@ -20,7 +20,10 @@ html, body {
     Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
 }
+
+html { scroll-padding-bottom: 80px; }
 
 .app {
   max-width: 880px;
@@ -242,4 +245,183 @@ h1 {
 .generate {
   margin-top: 24px;
   text-align: right;
+}
+
+/* ---------- Mobile / phone ---------- */
+@media (max-width: 720px) {
+  body { font-size: 15px; }
+
+  .app {
+    padding: 16px 12px 96px;
+  }
+
+  h1 { font-size: 20px; }
+  .subtitle { margin-bottom: 16px; font-size: 14px; }
+
+  .section {
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+  }
+
+  /* Stack labels above inputs for tap-friendly layout. */
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .field-row label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* 16px font on text/number/select prevents iOS Safari from zooming on focus. */
+  .field-row input[type="text"],
+  .field-row input[type="number"],
+  .field-row select,
+  .hymn-search input,
+  .song-row select,
+  .song-row input[type="number"] {
+    font-size: 16px;
+    padding: 10px 12px;
+    min-height: 44px;
+  }
+
+  .date-row input[type="number"] { width: 90px; }
+  .date-row select { flex: 1; width: auto; }
+
+  /* Two-column grid with named areas: title spans both, key + mod sit
+     side-by-side, modkey appears below when active, remove spans both. */
+  .song-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "search  search"
+      "key     mod"
+      "modkey  modkey"
+      "remove  remove";
+    gap: 8px;
+    padding: 14px 0;
+  }
+
+  .song-row.with-label {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "label   label"
+      "search  search"
+      "key     mod"
+      "modkey  modkey"
+      "remove  remove";
+  }
+
+  .song-row > .row-label   { grid-area: label; }
+  .song-row > .hymn-search { grid-area: search; }
+  .song-row__key           { grid-area: key; }
+  .song-row > .modulation  { grid-area: mod; }
+  .song-row__modkey        { grid-area: modkey; }
+  .song-row > .btn-remove,
+  .song-row > .song-row__spacer { grid-area: remove; }
+
+  /* Hide the modulation-target dropdown when the toggle is off — saves
+     a row and removes visual clutter (it was a disabled "Key" select). */
+  .song-row__modkey[disabled] { display: none; }
+  .song-row__spacer { display: none; }
+
+  .song-row .row-label {
+    padding-top: 0;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .hymn-search .number-input {
+    width: 110px;
+    margin-top: 6px;
+  }
+
+  /* Modulation toggle: checkbox + label "→ Modulates" so its purpose is clear. */
+  .modulation {
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 0 8px;
+    min-height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fafafa;
+  }
+
+  .modulation input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+  }
+
+  .modulation span {
+    font-size: 15px;
+  }
+
+  .modulation span::after {
+    content: ' Modulates';
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .btn-remove {
+    width: 100%;
+    height: 44px;
+    margin-top: 2px;
+    font-size: 16px;
+    color: var(--danger);
+  }
+
+  .btn-remove::after {
+    content: ' Remove';
+    font-size: 14px;
+  }
+
+  /* Suggestions: bigger tap targets, more space. */
+  .suggestions button {
+    padding: 12px 14px;
+    font-size: 15px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .suggestions button:last-child { border-bottom: none; }
+  .suggestions .num { width: 44px; }
+
+  .btn {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 15px;
+  }
+
+  .add-song .btn { width: 100%; }
+
+  /* Sticky Generate button so it's always reachable on a phone.
+     The 24px-tall top gradient softens the overlap when scrolled mid-form. */
+  .generate {
+    position: sticky;
+    bottom: 0;
+    margin: 16px -12px -96px;
+    padding: 24px 12px calc(10px + env(safe-area-inset-bottom));
+    background: linear-gradient(to bottom, rgba(250, 250, 250, 0) 0%, rgba(250, 250, 250, 0.85) 40%, var(--bg) 75%);
+    text-align: center;
+    pointer-events: none;
+  }
+  .generate > * { pointer-events: auto; }
+
+  .btn-primary {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    min-height: 46px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  }
+}
+
+/* Very narrow phones — tighten a touch more. */
+@media (max-width: 380px) {
+  .app { padding: 12px 10px 96px; }
+  .section { padding: 12px; }
 }
