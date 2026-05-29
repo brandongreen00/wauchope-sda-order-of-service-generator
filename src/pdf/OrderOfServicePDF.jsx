@@ -18,41 +18,56 @@ Font.register({
   ],
 });
 
-// Landscape A4: 842 x 595 pt. Two halves side-by-side, each ~421pt wide.
+// Landscape A4: 842 x 595 pt. Two identical columns 288pt wide, pushed to the
+// outer margins with the gap centred so the sheet can be cut down the middle.
+// IMPORTANT: lineHeight is set ONLY on the page. @react-pdf inflates the line
+// pitch when lineHeight is also applied to a <Text> that wraps nested <Text>
+// spans (e.g. a bold label + value), so per-line lineHeight is deliberately
+// avoided to keep the tight 14.5pt pitch that matches the reference.
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
-    paddingVertical: 36,
-    paddingHorizontal: 32,
+    justifyContent: 'space-between',
+    paddingTop: 51.6,
+    paddingBottom: 36,
+    paddingHorizontal: 43.7,
     fontFamily: 'LiberationSans',
-    fontSize: 10.5,
+    fontSize: 10,
     color: '#000',
-    lineHeight: 1.1,
+    lineHeight: 1.45,
   },
   half: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
-  divider: {
-    width: 0.75,
-    backgroundColor: '#bbb',
-    marginHorizontal: 4,
+    width: 288,
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 13,
-    marginBottom: 3,
+    fontSize: 14,
+    marginBottom: 4.6,
   },
-  line: {
-    lineHeight: 1.1,
-  },
+  line: {},
   bold: {
     fontWeight: 'bold',
   },
+  // Section rule: a thin black bottom border. The wrapping margins create the
+  // inter-section spacing seen in the reference (~one blank line each side).
   sectionRule: {
     borderBottomWidth: 0.75,
-    borderBottomColor: '#999',
-    marginVertical: 3,
+    borderBottomColor: '#000',
+    marginTop: 7,
+    marginBottom: 7,
+  },
+  // The reference leaves a larger gap (an extra blank line) after the header
+  // block, before the first rule.
+  headerRule: {
+    borderBottomWidth: 0.75,
+    borderBottomColor: '#000',
+    marginTop: 13,
+    marginBottom: 13.3,
+  },
+  // Blank spacer between Praise & Worship and Welcome & Announcements — the
+  // reference has a gap here but no rule.
+  sectionGap: {
+    marginTop: 14.5,
   },
 });
 
@@ -91,7 +106,7 @@ function HalfContent({ state }) {
         <Text style={styles.bold}>Song Team: </Text>{people.songTeam}
       </Text>
 
-      <View style={styles.sectionRule} />
+      <View style={styles.headerRule} />
 
       <Text style={[styles.line, styles.bold]}>Welcome/Mission Spotlight/Offering/Prayer</Text>
       <Text style={[styles.line, styles.bold]}>Divide for classes:</Text>
@@ -118,7 +133,7 @@ function HalfContent({ state }) {
         <Text style={styles.bold}>Kids Song </Text>{kidsSongLine(kidsSong)}
       </Text>
 
-      <View style={styles.sectionRule} />
+      <View style={styles.sectionGap} />
 
       <Text style={[styles.line, styles.bold]}>Welcome &amp; Announcements</Text>
       <Text style={styles.line}>
@@ -147,7 +162,6 @@ export default function OrderOfServicePDF({ state }) {
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page}>
         <View style={styles.half}><HalfContent state={state} /></View>
-        <View style={styles.divider} />
         <View style={styles.half}><HalfContent state={state} /></View>
       </Page>
     </Document>
