@@ -78,9 +78,11 @@ The site will then be live at
 
 ## Notes on the PDF
 
-- **Layout** matches the reference: A4 landscape, two identical halves split
-  by a thin vertical divider, horizontal rules between sections within each
-  half.
+- **Layout** matches the reference: A4 landscape, two identical 288pt columns
+  pushed to the outer margins with a centred gap so the sheet can be cut down
+  the middle (no printed divider). Each column uses Arial-compatible 10pt body
+  text at a 14.5pt line pitch, with two thin black rules — after the
+  people/header block and after the classes block.
 - **Hymn slots:** Invocational, Hymn (post-offering), Hymn (before sermon),
   Closing Hymn. The reference has four `Hymn:` lines, so the form has four
   fixed hymn rows in addition to the dynamic Praise & Worship list and the
